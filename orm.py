@@ -7,13 +7,17 @@ from sqlalchemy.orm import relationship, sessionmaker
 
 
 Base = declarative_base()
-UserHobbyRel = Table('UserHobbyRel', Base.metadata, Column('user_id', Integer, ForeignKey('User.id')), Column('hobby_id', Integer, ForeignKey('Hobby.id')))
-Participation = Table('Participation', Base.metadata, Column('user_id', Integer, ForeignKey('User.id')), Column('event_id', Integer, ForeignKey('Event.id')))
+UserHobbyRel = Table('UserHobbyRel', Base.metadata,
+                     Column('user_id', Integer, ForeignKey('User.id')),
+                     Column('hobby_id', Integer, ForeignKey('Hobby.id')))
+Participation = Table('Participation', Base.metadata,
+                      Column('user_id', Integer, ForeignKey('User.id')),
+                      Column('event_id', Integer, ForeignKey('Event.id')))
 
 
 class User(Base):
     """App user.
-    
+
     Attributes:
         login: short nickname
         name: full name
@@ -81,16 +85,20 @@ class Event(Base):
 
 def init(first_run=False):
     """Initializes ORM and gives you the Session object.
-    
+
     Args:
         first_run: Is it the first run of the program. If `True` creates tables first.
-    
+
     Returns:
         Session. Started session you can use for queries."""
     config = getConfig()['database']
-    engine = alc.create_engine('postgresql+pypostgresql://{}:{}@{}:{}/{}'.format(config['user'], config['password'], config['host'], config['port'], config['dbname']))
+    connect_string = 'postgresql+pypostgresql://{}:{}@{}:{}/{}'.format(config['user'],
+                                                                       config['password'],
+                                                                       config['host'],
+                                                                       config['port'],
+                                                                       config['dbname'])
+    engine = alc.create_engine(connect_string)
     if first_run:
         Base.metadata.create_all(engine)
     session = sessionmaker(bind=engine)()
     return session
-
