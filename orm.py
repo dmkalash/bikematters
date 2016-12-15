@@ -90,7 +90,7 @@ def init(first_run=False):
         first_run: Is it the first run of the program. If `True` creates tables first.
 
     Returns:
-        Session. Started session you can use for queries."""
+        Session: Started session you can use for queries."""
     config = getConfig()['database']
     connect_string = 'postgresql+pypostgresql://{}:{}@{}:{}/{}'.format(config['user'],
                                                                        config['password'],
