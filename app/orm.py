@@ -5,7 +5,6 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Table, ForeignKey, Integer, Text, Date, Float, Enum
 from sqlalchemy.orm import relationship, sessionmaker
 
-
 Base = declarative_base()
 UserHobbyRel = Table('UserHobbyRel', Base.metadata,
                      Column('user_id', Integer, ForeignKey('User.id')),
