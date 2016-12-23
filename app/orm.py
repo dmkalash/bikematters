@@ -31,6 +31,17 @@ class User(Base):
     """
     __tablename__ = 'User'
 
+    def __init__(self, id=None, login=None,email=None,name=None,birthday=None,passhash=None,occupation=None,about=None,gender=None):
+        self.id = id
+        self.login = login
+        self.email = email
+        self.name = name
+        self.birthday = birthday
+        self.passhash = passhash
+        self.occupation = occupation
+        self.about = about
+        self.gender = gender
+
     id = Column(Integer, primary_key=True)
     login = Column(Text, nullable=False)
     email = Column(Text, nullable=False)
