@@ -16,7 +16,7 @@ BikeMates - Find Your Fellow Bikers. Приложение, которое объ
    * JQuery
    * HTML5
 * Backend
-   * Python 3
+   * Python 3.4
    * Flask
    * PostgreSQL
    * SQLAlchemy
