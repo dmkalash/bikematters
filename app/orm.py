@@ -43,6 +43,18 @@ class User(Base):
     hobbies = relationship('Hobby', secondary=UserHobbyRel)
     events = relationship('Event', secondary=Participation)
 
+    def set_id(self, new_id): self.id = new_id
+    def set_login(self, new_login): self.login = new_login
+    def set_email(self, new_email): self.email = new_email
+    def set_name(self, new_name): self.name = new_name
+    def set_birthday(self, new_birthday): self.birthday = new_birthday
+    def set_passhash(self, new_passhash): self.passhash = new_passhash
+    def set_occupation(self, new_occupation): self.occupation = new_occupation
+    def set_about(self, new_about): self.about = new_about
+    def set_gender(self, new_gender): self.gender = new_gender
+    def set_hobbies(self, new_hobbies): self.hobbies = new_hobbies
+    def set_events(self, new_events): self.events = new_events
+
 
 class Hobby(Base):
     """Hobby of some users.

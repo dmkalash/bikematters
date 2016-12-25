@@ -1,0 +1,25 @@
+from flask import Flask
+from wtforms import Form, StringField, IntegerField, TextAreaField, ValidationError, validators, SubmitField
+# from wtforms.validators import DataRequired
+
+
+class MyForm(Form):
+    first_name = StringField(u'FirstName', validators=[validators.input_required(), validators.length(3, 15, 'No correct')])
+    last_name = StringField(u'LastName', validators=[validators.input_required(), validators.length(2, 20, 'No correct')])
+    age = IntegerField(u'Age', validators=[validators.input_required(), validators.length(13, 100, 'We are sorry, you  be 13 or older to register')])
+    password = StringField(u'Password', validators=[validators.input_required(), validators.length(2, 20, 'No correct')])
+
+# App config.
+DEBUG = False
+app = Flask(__name__)
+app.config.from_object(__name__)
+app.config['SECRET_KEY'] = 'secret_word'
+
+
+@app.route("/")
+def hello_world():
+    # form = MyForm(form)
+    return 'Hi'
+
+if __name__ == '__main__':
+    app.run()
