@@ -1,25 +1,33 @@
-from flask import Flask
-from wtforms import Form, StringField, IntegerField, TextAreaField, ValidationError, validators, SubmitField
-# from wtforms.validators import DataRequired
+# -*- coding: utf8 -*-
+
+from wtforms import Form, BooleanField, StringField, PasswordField, validators
+from wtforms import StringField, PasswordField, TextAreaField, SelectField, Form
+from wtforms.validators import Email, DataRequired, EqualTo
 
 
-class MyForm(Form):
-    first_name = StringField(u'FirstName', validators=[validators.input_required(), validators.length(3, 15, 'No correct')])
-    last_name = StringField(u'LastName', validators=[validators.input_required(), validators.length(2, 20, 'No correct')])
-    age = IntegerField(u'Age', validators=[validators.input_required(), validators.length(13, 100, 'We are sorry, you  be 13 or older to register')])
-    password = StringField(u'Password', validators=[validators.input_required(), validators.length(2, 20, 'No correct')])
+class LoginForm(Form):
+    def __init__(self):
+        self.email = StringField('E-mail', validators=[Email(), DataRequired()])
+        self.password = PasswordField('Password', validators=[DataRequired(), validators.Length(min=8, max=30)])
+    
+    def check(self):
+        if self.email != 'False' & self.password != 'False':
+            pass
+            # проверка пройдена, дальнейшие действия
+        else:
+            return "Error"
 
-# App config.
-DEBUG = False
-app = Flask(__name__)
-app.config.from_object(__name__)
-app.config['SECRET_KEY'] = 'secret_word'
 
-
-@app.route("/")
-def hello_world():
-    # form = MyForm(form)
-    return 'Hi'
-
-if __name__ == '__main__':
-    app.run()
+class RegistrationForm(Form):
+    def __init__(self):
+        self.name = StringField('Name', validators=[DataRequired(), validators.Length(min=4, max=20)])
+        self.login = StringField('Login', validators=[DataRequired(), validators.Length(min=6, max=25)])
+        self.email = StringField('E-mail', validators=[Email(), DataRequired()])
+        self.password = PasswordField('Password', validators=[DataRequired(), validators.Length(min=8, max=30)])
+    
+    def check(self):
+        if self.email != 'False' & self.password != 'False' & self.login != 'False' & self.name != 'False':
+            pass
+            # тут регаем пользователя, создаем нового пользователя в БД
+        else:
+            return "Error"
