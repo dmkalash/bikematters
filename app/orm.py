@@ -4,6 +4,7 @@ from config import getConfig
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Table, ForeignKey, Integer, Text, Date, Float, Enum
 from sqlalchemy.orm import relationship, sessionmaker
+import hashlib
 
 Base = declarative_base()
 UserHobbyRel = Table('UserHobbyRel', Base.metadata,
@@ -42,6 +43,34 @@ class User(Base):
     gender = Column(Enum('he', 'she', 'it', name='gender'), nullable=False)
     hobbies = relationship('Hobby', secondary=UserHobbyRel)
     events = relationship('Event', secondary=Participation)
+
+    def set_id(self, id):
+        self.id = id
+    
+    def set_login(self, login):
+        self.login = login
+
+    def self_email(email):
+        self.email = email
+
+    def set_name(name):
+        self.name = name
+
+    def set_birthday(birthday):
+        self.birthday = birthday
+
+    def set_pass(password):
+        self.passhash = hashlib.sha512(password.encode('utf-8')).hexdigest()
+
+    def set_occupation(occupation):
+        self.occupatoin = occupation
+    
+    def set_about(about):
+        self.about = about
+
+    def set_gender(gender):
+        self.gender = gender
+
 
 
 class Hobby(Base):
