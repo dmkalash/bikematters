@@ -172,3 +172,5 @@ BikeMates - Find Your Fellow Bikers. Приложение, которое объ
         1. /<id>
             1. /edit
             2. /delete
+    4. /register
+    5. /login
