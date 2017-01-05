@@ -1,0 +1,31 @@
+from flask import Flask
+from wtforms import Form, StringField, IntegerField, TextAreaField, ValidationError, validators, SubmitField
+# from wtforms.validators import DataRequired
+import form
+
+
+class RegistrationForm(Form):
+    login = TextField('login', validators = [Required()])
+    name = TextField('name', validators = [Required()])
+    email = TextField('email', alidators = [Required()])
+    password = TextField('password', alidators = [Required()])
+    remember_me = BooleanField('remember_me', default = False)
+
+# App config.
+DEBUG = False
+app = Flask(__name__)
+app.config.from_object(__name__)
+app.config['SECRET_KEY'] = 'secret_word'
+
+@app.route('/registration', methods = ['GET', 'POST'])
+def registration():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        flash('Registration requested for login="' + form.login.data + '", name="' + form.name.data + '", email="' + form.email.data + '", password="' + form.password.data + '", remember_me=' + str(form.remember_me.data))
+        return redirect('/index')
+    return render_template('registration.html',
+        title = 'Sign Up',
+        form = form)
+
+if __name__ == '__main__':
+    app.run()
